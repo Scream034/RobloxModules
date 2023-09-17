@@ -5,7 +5,7 @@ local module = {}
 local DataStoreService = game:GetService("DataStoreService")
 
 -- Получить датастор у игрока
-function module.GetDataStoreValues(datastoreName: string, scopeName: string, userId: string)
+function module.GetDataStoreValues(datastoreName: string, scopeName: string, userId: string): {}?
 	local dataStore = DataStoreService:GetDataStore(datastoreName, scopeName)
 	local success, values = pcall(function()
 		return dataStore:GetAsync("uid_" .. userId)
@@ -18,7 +18,7 @@ function module.GetDataStoreValues(datastoreName: string, scopeName: string, use
 end
 
 -- Создать значения датастора (значений) у игрока
-function module.SetDataStoreValues(datastoreName: string, scopeName: string, userId: string, values: {})
+function module.SetDataStoreValues(datastoreName: string, scopeName: string, userId: string, values: {}): ()
 	local dataStore = DataStoreService:GetDataStore(datastoreName, scopeName)
 	local success, errorMessage = pcall(function()
 		dataStore:SetAsync("uid_" .. userId, values)
@@ -29,7 +29,7 @@ function module.SetDataStoreValues(datastoreName: string, scopeName: string, use
 end
 
 -- Изменить значения датастора (значений) у игрока
-function module.ChangeDataStoreValues(datastoreName: string, scopeName: string, userId: string, values: {})
+function module.ChangeDataStoreValues(datastoreName: string, scopeName: string, userId: string, values: {}): ()
 	local dataStore = DataStoreService:GetDataStore(datastoreName, scopeName)
 	local success, errorMessage = pcall(function()
 		dataStore:UpdateAsync("uid_" .. userId, function(oldData)
@@ -42,7 +42,7 @@ function module.ChangeDataStoreValues(datastoreName: string, scopeName: string, 
 end
 
 -- Удалить значения датастора (значений) у игрока
-function module.RemoveDataStoreValues(datastoreName: string, scopeName: string, userId: string)
+function module.RemoveDataStoreValues(datastoreName: string, scopeName: string, userId: string): ()
 	local dataStore = DataStoreService:GetDataStore(datastoreName, scopeName)
 	local success, errorMessage = pcall(function()
 		dataStore:RemoveAsync("uid_" .. userId)
