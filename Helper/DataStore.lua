@@ -37,7 +37,7 @@ function module.ChangeDataStoreValues(datastoreName: string, scopeName: string, 
 		end)
 	end)
 	if not success then
-		error("Error: Failed to ChangeDataStoreValues for " .. "uid_" .. userId .. " value: " .. name .. "\nMessage: " .. errorMessage)
+		error("Error: Failed to ChangeDataStoreValues for " .. "uid_" .. userId .. " values: " .. values .. "\nMessage: " .. errorMessage)
 	end
 end
 
