@@ -3,10 +3,10 @@
 
 local PlayersService = game:GetService("Players")
 
-local module = {}
+local Module = {}
 
 -- Получить игрока через парт и его имя
-function module.GetPlayerByPart(part: BasePart, name: string?): Player?
+function Module.GetPlayerByPart(part: BasePart, name: string?): Player?
 	if name and part.Name ~= name then return end
 
 	local Character = part.Parent
@@ -21,7 +21,7 @@ function module.GetPlayerByPart(part: BasePart, name: string?): Player?
 end
 
 -- Создаёт звук на время проигравания
-function module.PlaySound(part: BasePart, id: number): ()
+function Module.PlaySound(part: BasePart, id: number): ()
 	local sound = Instance.new("Sound")
 	sound.SoundId = "rbxassetid://" .. tostring(id)  -- ID звука из каталога Roblox
 	sound.Parent = part
@@ -36,5 +36,38 @@ function module.PlaySound(part: BasePart, id: number): ()
 	sound:Remove()
 end
 
+-- Получить путь объекта
+function Module.GetInstancePath(instance: Instance): string?
+	if not instance:IsDescendantOf(game) then
+		return nil
+	end
 
-return module
+	local path = instance.Name
+	local parent = instance.Parent
+
+	while parent and parent ~= game do
+		path = parent.Name .. "/" .. path
+		parent = parent.Parent
+	end
+
+	return path
+end
+
+-- Получить объект по пути
+function Module.GetInstanceFromPath(path: string): Instance?
+	local parts = path:split("/")
+	local result = game
+	
+	for _, value in ipairs(parts) do
+		if value == "" then
+			break
+		end
+		
+		result = result:FindFirstChild(value)
+	end
+	
+	return result
+end
+
+
+return Module
