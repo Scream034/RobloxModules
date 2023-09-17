@@ -14,25 +14,25 @@ function module.GetPlayerByPart(part: BasePart, name: string?): Player?
 
 	local Humanoid = Character:FindFirstChildOfClass("Humanoid")
 	if not Humanoid then return end
-	
+
 	if Humanoid.Health <= 0 then return end
-	
+
 	return PlayersService:GetPlayerFromCharacter(Character)
 end
 
 -- Создаёт звук на время проигравания
-function module.PlaySound(part: BasePart, id: number)
+function module.PlaySound(part: BasePart, id: number): ()
 	local sound = Instance.new("Sound")
 	sound.SoundId = "rbxassetid://" .. tostring(id)  -- ID звука из каталога Roblox
 	sound.Parent = part
 	sound.RollOffMaxDistance = 128
 	sound.RollOffMinDistance = 4
 	sound.RollOffMode = Enum.RollOffMode.Linear
-	
+
 	sound:Play()
-	
+
 	sound.Ended:Wait()
-	
+
 	sound:Remove()
 end
 
