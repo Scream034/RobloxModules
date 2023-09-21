@@ -4,10 +4,13 @@
 
 ## Содержимое
 
-1. Helper:
+1. Modules:
+   - UIAnimations - Лёгкая работа с анимациями для UI
+   - Также содержит подпапки.
+2. Modules/Helper:
    - DataStore - Легкая работа с DataStore в Roblox.
    - General - Общие полезные функции.
-2. Utils:
+1. Modules/Utils:
    - BasePart - Математика с `Part`.
    - Vector - Удобная математика с `Vector3` и `Vector2`.
 
