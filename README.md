@@ -46,5 +46,4 @@ local player = HelperGeneral.GetPlayerByPart(hit, "UpperTorso")
 ### Ссылки
 | Имя         | Ссылка                      |
 | ----------- | --------------------------- |
-| Discord     | https://discord.gg/huzWF82w |
 | Discord тег | paralax034 - создатель      |
