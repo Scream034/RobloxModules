@@ -1,14 +1,14 @@
--- Утилита для работы с математикой координат
--- Автор: paralax034
+-- РЈС‚РёР»РёС‚Р° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РјР°С‚РµРјР°С‚РёРєРѕР№ РєРѕРѕСЂРґРёРЅР°С‚
+-- РђРІС‚РѕСЂ: paralax034
 
 local Module = {}
 
---- Получение позици на нормале
---- @param originCFrame CFrame: Исходный CFrame
---- @param originSize Vector3: Исходный размер
---- @param normalId Enum.NormalId: Айди нормали
---- @param offset Vector3?: Смещение
---- @return Vector3: Конечную позицию
+--- РџРѕР»СѓС‡РµРЅРёРµ РїРѕР·РёС†Рё РЅР° РЅРѕСЂРјР°Р»Рµ
+--- @param originCFrame CFrame: РСЃС…РѕРґРЅС‹Р№ CFrame
+--- @param originSize Vector3: РСЃС…РѕРґРЅС‹Р№ СЂР°Р·РјРµСЂ
+--- @param normalId Enum.NormalId: РђР№РґРё РЅРѕСЂРјР°Р»Рё
+--- @param offset Vector3?: РЎРјРµС‰РµРЅРёРµ
+--- @return Vector3: РљРѕРЅРµС‡РЅСѓСЋ РїРѕР·РёС†РёСЋ
 function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, normalId: Enum.NormalId, positionOffset: Vector3?): Vector3
 	positionOffset = positionOffset or Vector3.zero
 	local result = Vector3.zero
@@ -30,11 +30,11 @@ function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, n
 	return result
 end
 
---- Получение позици на нормале
---- @param originCFrame CFrame: Исходный CFrame
---- @param originSize Vector3: Исходный размер
---- @param position Vector3: Позиция объекта
---- @return Enum.NormalId?: Нормаль относительно указанной позиции
+--- РџРѕР»СѓС‡РµРЅРёРµ РїРѕР·РёС†Рё РЅР° РЅРѕСЂРјР°Р»Рµ
+--- @param originCFrame CFrame: РСЃС…РѕРґРЅС‹Р№ CFrame
+--- @param originSize Vector3: РСЃС…РѕРґРЅС‹Р№ СЂР°Р·РјРµСЂ
+--- @param position Vector3: РџРѕР·РёС†РёСЏ РѕР±СЉРµРєС‚Р°
+--- @return Enum.NormalId?: РќРѕСЂРјР°Р»СЊ РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ СѓРєР°Р·Р°РЅРЅРѕР№ РїРѕР·РёС†РёРё
 function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Vector3, position: Vector3): Enum.NormalId?
 	local originCenter = originCFrame.Position
 	local positionVector = (position - originCenter).Unit
@@ -74,11 +74,11 @@ function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Ve
 	return nil
 end
 
---- Получение позиции и углов из камеры
---- @param camera Camera: Камера игрока
---- @param positionOffset Vector3?: Смещение позиции
---- @param rotationOffset Vector3?: Смещение углов
---- @return table: Объект с позицией, углами и направлением камеры
+--- РџРѕР»СѓС‡РµРЅРёРµ РїРѕР·РёС†РёРё Рё СѓРіР»РѕРІ РёР· РєР°РјРµСЂС‹
+--- @param camera Camera: РљР°РјРµСЂР° РёРіСЂРѕРєР°
+--- @param positionOffset Vector3?: РЎРјРµС‰РµРЅРёРµ РїРѕР·РёС†РёРё
+--- @param rotationOffset Vector3?: РЎРјРµС‰РµРЅРёРµ СѓРіР»РѕРІ
+--- @return table: РћР±СЉРµРєС‚ СЃ РїРѕР·РёС†РёРµР№, СѓРіР»Р°РјРё Рё РЅР°РїСЂР°РІР»РµРЅРёРµРј РєР°РјРµСЂС‹
 function Module.GetPositionAndAnglesFromCamera(camera: Camera, positionOffset: Vector3?, rotationOffset: Vector3?)
 	assert(typeof(camera) == "Instance" and camera:IsA("Camera"), "Camera must be an instance of the Camera object.")
 
