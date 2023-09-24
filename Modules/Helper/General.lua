@@ -20,20 +20,43 @@ function Module.GetPlayerByPart(part: BasePart, name: string?): Player?
 	return PlayersService:GetPlayerFromCharacter(Character)
 end
 
--- Создаёт звук на время проигравания
-function Module.PlaySound(part: BasePart, id: number): ()
-	local sound = Instance.new("Sound")
+-- Создаёт звук
+function Module.PlaySound(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): ()
+	local part = Instance.new("Part", workspace)
+	part.Name = "SoundPart_" .. tostring(id)
+	part.Anchored = true
+	part.Transparency = 1
+	part.CanCollide = false
+	part.CanQuery = false
+	part.CanTouch = false
+	part.Position = originPart.Position
+	
+	originPart:GetPropertyChangedSignal("CFrame"):Connect(function() 
+		part.Position = originPart.Position
+	end)
+	
+	local sound = Instance.new("Sound", part)
+	sound.Looped = looped ~= nil
 	sound.SoundId = "rbxassetid://" .. tostring(id)  -- ID звука из каталога Roblox
-	sound.Parent = part
-	sound.RollOffMaxDistance = 128
-	sound.RollOffMinDistance = 4
-	sound.RollOffMode = Enum.RollOffMode.Linear
-
+	sound.RollOffMaxDistance = maxDistance
+	sound.RollOffMinDistance = minDistance
+	
+	if callback then
+		sound.Ended:Connect(callback)
+	end
+	
 	sound:Play()
-
-	sound.Ended:Wait()
-
-	sound:Remove()
+	
+	if isWait then
+		sound.Ended:Wait()
+	end
+	
+	if not looped then
+		spawn(function() 
+			wait(sound.TimeLength)
+			part:Remove()
+		end)
+	end
 end
 
 -- Получить путь объекта
@@ -69,5 +92,12 @@ function Module.GetInstanceFromPath(path: string): Instance?
 	return result
 end
 
+-- Копирование всех дочерних элементов
+function Module.CopyChildren(From: Instance, To: Instance): ()
+	for _, Child in ipairs(From:GetChildren()) do
+		local Clone = Child:Clone()
+		Clone.Parent = To
+	end
+end
 
 return Module
