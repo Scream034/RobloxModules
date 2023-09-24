@@ -1,23 +1,23 @@
--- Разные UI анимации с помощью Tween
--- Автор: paralax034
+-- Р Р°Р·РЅС‹Рµ UI Р°РЅРёРјР°С†РёРё СЃ РїРѕРјРѕС‰СЊСЋ Tween
+-- РђРІС‚РѕСЂ: paralax034
 
 local TweenService = game:GetService("TweenService")
 
 local Module = {}
 
---- Плавный уход
---- @param obj GuiObject: Исходный объект анимации
---- @param side number: Номер стороны
----- 0 - лево
----- 1 - вверх
----- 2 - вправо
----- 3 - вниз
----- 4 - левый угол
----- 5 - правый угол
----- 6 - правый нижний угол
----- 7 - левый нижний угол
---- @param tweenInfo TweenInfo: Информация о анимации
---- @param isRemove boolean?: Удалять ли объект после анимации
+--- РџР»Р°РІРЅС‹Р№ СѓС…РѕРґ
+--- @param obj GuiObject: РСЃС…РѕРґРЅС‹Р№ РѕР±СЉРµРєС‚ Р°РЅРёРјР°С†РёРё
+--- @param side number: РќРѕРјРµСЂ СЃС‚РѕСЂРѕРЅС‹
+---- 0 - Р»РµРІРѕ
+---- 1 - РІРІРµСЂС…
+---- 2 - РІРїСЂР°РІРѕ
+---- 3 - РІРЅРёР·
+---- 4 - Р»РµРІС‹Р№ СѓРіРѕР»
+---- 5 - РїСЂР°РІС‹Р№ СѓРіРѕР»
+---- 6 - РїСЂР°РІС‹Р№ РЅРёР¶РЅРёР№ СѓРіРѕР»
+---- 7 - Р»РµРІС‹Р№ РЅРёР¶РЅРёР№ СѓРіРѕР»
+--- @param tweenInfo TweenInfo: РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р°РЅРёРјР°С†РёРё
+--- @param isRemove boolean?: РЈРґР°Р»СЏС‚СЊ Р»Рё РѕР±СЉРµРєС‚ РїРѕСЃР»Рµ Р°РЅРёРјР°С†РёРё
 function Module.Slide(obj: GuiObject, side: number, tweenInfo: TweenInfo, isRemove: boolean?): ()
 	local startPos = obj.Position
 
@@ -50,10 +50,10 @@ function Module.Slide(obj: GuiObject, side: number, tweenInfo: TweenInfo, isRemo
 	end
 end
 
---- Плавная прозачность
---- @param obj GuiObject: Исходный объект анимации
---- @param tweenInfo TweenInfo: Информация о анимации
---- @param isRemove boolean?: Удалять ли объект после анимации
+--- РџР»Р°РІРЅР°СЏ РїСЂРѕР·Р°С‡РЅРѕСЃС‚СЊ
+--- @param obj GuiObject: РСЃС…РѕРґРЅС‹Р№ РѕР±СЉРµРєС‚ Р°РЅРёРјР°С†РёРё
+--- @param tweenInfo TweenInfo: РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р°РЅРёРјР°С†РёРё
+--- @param isRemove boolean?: РЈРґР°Р»СЏС‚СЊ Р»Рё РѕР±СЉРµРєС‚ РїРѕСЃР»Рµ Р°РЅРёРјР°С†РёРё
 function Module.Fade(obj: GuiObject, tweenInfo: TweenInfo, isRemove: boolean?): ()
 	local tweenInfo = tweenInfo
 
