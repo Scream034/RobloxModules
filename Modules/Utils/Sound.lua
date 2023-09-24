@@ -1,16 +1,16 @@
--- Для работы со звуками
--- Автор: paralax034
+-- Р”Р»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ Р·РІСѓРєР°РјРё
+-- РђРІС‚РѕСЂ: paralax034
 
 local Module = {}
 
---- Создаёт звук и воспроизводит его, затем удаляет или циклирует.
---- @param originPart BasePart: Парт, относительно которого проигрывается звук.
---- @param id number: ID звука из каталога Roblox.
---- @param minDistance number: Минимальное расстояние, на котором звук всегда будет слышен.
---- @param maxDistance number: Максимальное расстояние, на котором звук будет слышен с уменьшением громкости соответствующим образом.
---- @param isWait boolean: Ожидать ли окончания проигрывания звука перед удалением объекта Part.
---- @param looped boolean|nil: (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
---- @param callback function|nil: (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
+--- РЎРѕР·РґР°С‘С‚ Р·РІСѓРє Рё РІРѕСЃРїСЂРѕРёР·РІРѕРґРёС‚ РµРіРѕ, Р·Р°С‚РµРј СѓРґР°Р»СЏРµС‚ РёР»Рё С†РёРєР»РёСЂСѓРµС‚.
+--- @param originPart BasePart: РџР°СЂС‚, РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕ РєРѕС‚РѕСЂРѕРіРѕ РїСЂРѕРёРіСЂС‹РІР°РµС‚СЃСЏ Р·РІСѓРє.
+--- @param id number: ID Р·РІСѓРєР° РёР· РєР°С‚Р°Р»РѕРіР° Roblox.
+--- @param minDistance number: РњРёРЅРёРјР°Р»СЊРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРј Р·РІСѓРє РІСЃРµРіРґР° Р±СѓРґРµС‚ СЃР»С‹С€РµРЅ.
+--- @param maxDistance number: РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ СЂР°СЃСЃС‚РѕСЏРЅРёРµ, РЅР° РєРѕС‚РѕСЂРѕРј Р·РІСѓРє Р±СѓРґРµС‚ СЃР»С‹С€РµРЅ СЃ СѓРјРµРЅСЊС€РµРЅРёРµРј РіСЂРѕРјРєРѕСЃС‚Рё СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРј РѕР±СЂР°Р·РѕРј.
+--- @param isWait boolean: РћР¶РёРґР°С‚СЊ Р»Рё РѕРєРѕРЅС‡Р°РЅРёСЏ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ Р·РІСѓРєР° РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј РѕР±СЉРµРєС‚Р° Part.
+--- @param looped boolean|nil: (РћРїС†РёРѕРЅР°Р»СЊРЅРѕ) РќСѓР¶РЅРѕ Р»Рё С†РёРєР»РёС‡РµСЃРєРё РїСЂРѕРёРіСЂС‹РІР°С‚СЊ Р·РІСѓРє. РџРѕ СѓРјРѕР»С‡Р°РЅРёСЋ false.
+--- @param callback function|nil: (РћРїС†РёРѕРЅР°Р»СЊРЅРѕ) Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°С‚РЅРѕРіРѕ РІС‹Р·РѕРІР°, РІС‹Р·С‹РІР°РµРјР°СЏ РїРѕСЃР»Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ РїСЂРѕРёРіСЂС‹РІР°РЅРёСЏ Р·РІСѓРєР°.
 function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): ()
 	local part = Instance.new("Part", workspace)
 	part.Name = "SoundPart_" .. tostring(id)
@@ -27,7 +27,7 @@ function Module.Play(originPart: BasePart, id: number, minDistance: number, maxD
 
 	local sound = Instance.new("Sound", part)
 	sound.Looped = looped ~= nil
-	sound.SoundId = "rbxassetid://" .. tostring(id)  -- ID звука из каталога Roblox
+	sound.SoundId = "rbxassetid://" .. tostring(id)  -- ID Р·РІСѓРєР° РёР· РєР°С‚Р°Р»РѕРіР° Roblox
 	sound.RollOffMaxDistance = maxDistance
 	sound.RollOffMinDistance = minDistance
 
