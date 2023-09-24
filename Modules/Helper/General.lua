@@ -1,13 +1,13 @@
--- Общий Helper
--- Автор paralax034
+-- РћР±С‰РёР№ Helper
+-- РђРІС‚РѕСЂ paralax034
 
 local PlayersService = game:GetService("Players")
 
 local Module = {}
 
---- Копирует все дочерние элементы из одного объекта в другой.
---- @param From Instance: Объект, из которого копируются дочерние элементы.
---- @param To Instance: Объект, в который копируются дочерние элементы.
+--- РљРѕРїРёСЂСѓРµС‚ РІСЃРµ РґРѕС‡РµСЂРЅРёРµ СЌР»РµРјРµРЅС‚С‹ РёР· РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р° РІ РґСЂСѓРіРѕР№.
+--- @param From Instance: РћР±СЉРµРєС‚, РёР· РєРѕС‚РѕСЂРѕРіРѕ РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґРѕС‡РµСЂРЅРёРµ СЌР»РµРјРµРЅС‚С‹.
+--- @param To Instance: РћР±СЉРµРєС‚, РІ РєРѕС‚РѕСЂС‹Р№ РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґРѕС‡РµСЂРЅРёРµ СЌР»РµРјРµРЅС‚С‹.
 function Module.CopyChildren(from: Instance, to: Instance): ()
 	for _, Child in ipairs(from:GetChildren()) do
 		local Clone = Child:Clone()
