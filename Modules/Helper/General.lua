@@ -92,6 +92,26 @@ function Module.GetInstanceFromPath(path: string): Instance?
 	return result
 end
 
+-- Получает позицию и углы из объекта Camera.
+function Module.GetPositionAndAnglesFromCamera(Camera: Camera, positionXYZ: Vector3?, radiansXYZ: Vector3?)
+	assert(typeof(Camera) == "Instance" and Camera:IsA("Camera"), "Camera must be an instance of the Camera object.")
+
+	positionXYZ = positionXYZ or Vector3.zero
+	radiansXYZ = radiansXYZ or Vector3.zero
+	
+	local cframe = Camera.CFrame
+	local position = cframe:PointToWorldSpace(positionXYZ)
+	local radians = Vector3.new(cframe:ToOrientation()) + radiansXYZ
+	local degrees = Vector3.new(math.deg(radians.X), math.deg(radians.Y), math.deg(radians.Z))
+	
+	return {
+		Position = position,
+		Radians = radians,
+		Degrees = degrees,
+		Look = cframe.LookVector
+	}
+end	
+
 -- Копирование всех дочерних элементов
 function Module.CopyChildren(From: Instance, To: Instance): ()
 	for _, Child in ipairs(From:GetChildren()) do
