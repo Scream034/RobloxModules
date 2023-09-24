@@ -1,11 +1,11 @@
--- Для работы с объектами
--- Автор: paralax034
+-- Р”Р»СЏ СЂР°Р±РѕС‚С‹ СЃ РѕР±СЉРµРєС‚Р°РјРё
+-- РђРІС‚РѕСЂ: paralax034
 
 local Module = {}
 
---- Получить полный путь объекта
---- @param instance Instance: Исходный объект
---- @return string?: Конечный путь
+--- РџРѕР»СѓС‡РёС‚СЊ РїРѕР»РЅС‹Р№ РїСѓС‚СЊ РѕР±СЉРµРєС‚Р°
+--- @param instance Instance: РСЃС…РѕРґРЅС‹Р№ РѕР±СЉРµРєС‚
+--- @return string?: РљРѕРЅРµС‡РЅС‹Р№ РїСѓС‚СЊ
 function Module.GetInstancePath(instance: Instance): string?
 	if not instance:IsDescendantOf(game) then
 		return nil
@@ -22,9 +22,9 @@ function Module.GetInstancePath(instance: Instance): string?
 	return path
 end
 
---- Найти объект по пути
---- @param path string: Путь до объекта
---- @return Instance?: Конечный объект
+--- РќР°Р№С‚Рё РѕР±СЉРµРєС‚ РїРѕ РїСѓС‚Рё
+--- @param path string: РџСѓС‚СЊ РґРѕ РѕР±СЉРµРєС‚Р°
+--- @return Instance?: РљРѕРЅРµС‡РЅС‹Р№ РѕР±СЉРµРєС‚
 function Module.GetInstanceFromPath(path: string): Instance?
 	local parts = path:split("/")
 	local result = game
