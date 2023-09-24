@@ -1,12 +1,12 @@
--- Утилита для таблиц и массивов
--- Автор: paralax034
+-- РЈС‚РёР»РёС‚Р° РґР»СЏ С‚Р°Р±Р»РёС† Рё РјР°СЃСЃРёРІРѕРІ
+-- РђРІС‚РѕСЂ: paralax034
 
 local Module = {}
 
---- Удалить все элементы из таблицы до номера
---- @param table {}: Исходная таблица
---- @param endIndex number: Номер
---- @return {}: Таблицу с удалёнными элементами
+--- РЈРґР°Р»РёС‚СЊ РІСЃРµ СЌР»РµРјРµРЅС‚С‹ РёР· С‚Р°Р±Р»РёС†С‹ РґРѕ РЅРѕРјРµСЂР°
+--- @param table {}: РСЃС…РѕРґРЅР°СЏ С‚Р°Р±Р»РёС†Р°
+--- @param endIndex number: РќРѕРјРµСЂ
+--- @return {}: РўР°Р±Р»РёС†Сѓ СЃ СѓРґР°Р»С‘РЅРЅС‹РјРё СЌР»РµРјРµРЅС‚Р°РјРё
 function Module.RemoveElementsUntilIndex(table: {}, endIndex: number): {}
 	local tbl = table.clone(table)
 
@@ -19,10 +19,10 @@ function Module.RemoveElementsUntilIndex(table: {}, endIndex: number): {}
 	return tbl
 end
 
---- Обновить ключи, которые указаны
---- @param table {}: Исходная таблица
---- @param keyMappings {}: Ключи, которые нужно обновить
---- @return {}: Таблицу с обновлёнными элементами
+--- РћР±РЅРѕРІРёС‚СЊ РєР»СЋС‡Рё, РєРѕС‚РѕСЂС‹Рµ СѓРєР°Р·Р°РЅС‹
+--- @param table {}: РСЃС…РѕРґРЅР°СЏ С‚Р°Р±Р»РёС†Р°
+--- @param keyMappings {}: РљР»СЋС‡Рё, РєРѕС‚РѕСЂС‹Рµ РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ
+--- @return {}: РўР°Р±Р»РёС†Сѓ СЃ РѕР±РЅРѕРІР»С‘РЅРЅС‹РјРё СЌР»РµРјРµРЅС‚Р°РјРё
 function Module.UpdateExistingKeys(table: {}, keyMappings: {})
 	for oldKey, newKey in pairs(keyMappings) do
 		if table[oldKey] ~= nil then
