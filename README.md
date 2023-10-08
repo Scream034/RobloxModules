@@ -2,20 +2,7 @@
 
 Этот проект содержит вспомогательные файлы для команды **paralax**.
 Все скрипты и методы в этом репозитории были использованы на практике!
-Поэтому я не пишу много, так как репозиторий будет обновлятся и пополнятся по-мере моего опыта)
-
-## Содержимое
-
-1. Modules:
-   - UIAnimations - Лёгкая работа с анимациями для UI
-   - Также содержит подпапки.
-2. Modules/Helper:
-   - DataStore - Легкая работа с DataStore в Roblox.
-   - General - Общие полезные функции.
-1. Modules/Utils:
-   - BasePart - Математика с `Part`.
-   - Table - Удобные фукнции для работы таблицей
-   - Vector - Удобная математика с `Vector3` и `Vector2`.
+Поэтому я не пишу много, так как репозиторий будет обновлятся и пополнятся по-мере моего опыта.
 
 ## Использование (пример)
 
@@ -27,12 +14,12 @@
 
 ```lua
 -- Загрузка скрипта Helper/General
-local HelperGeneral = require(path.to.Helper:WaitForChild("General"))
+local HelperPlayer = require(path.to.Helper:WaitForChild("Player"))
 
 local hit = path.to.hit -- Парт хита
 
 -- Получить игрока по парту UpperTorso
-local player = HelperGeneral.GetPlayerByPart(hit, "UpperTorso")
+local player = HelperGeneral.GetPlayerByPart(hit, true, "Torso")
 ```
 
 ## Лицензия
