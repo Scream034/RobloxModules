@@ -9,9 +9,9 @@ local Module = {}
 --- @param minDistance number: Минимальное расстояние, на котором звук всегда будет слышен.
 --- @param maxDistance number: Максимальное расстояние, на котором звук будет слышен с уменьшением громкости соответствующим образом.
 --- @param isWait boolean: Ожидать ли окончания проигрывания звука перед удалением объекта Part.
---- @param looped boolean|nil: (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
---- @param callback function|nil: (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
-function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): ()
+--- @param looped boolean?: (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
+--- @param callback any?: (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
+function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: any?): ()
 	local part = Instance.new("Part", workspace)
 	part.Name = "SoundPart_" .. tostring(id)
 	part.Anchored = true
