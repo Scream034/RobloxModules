@@ -14,12 +14,12 @@
 
 ```lua
 -- Загрузка скрипта Helper/General
-local HelperPlayer = require(path.to.Helper:WaitForChild("Player"))
+local ToolsLivingEntity = require(path.to.Helper:WaitForChild("LivingEntity"))
 
 local hit = path.to.hit -- Парт хита
 
 -- Получить игрока по парту UpperTorso
-local player = HelperGeneral.GetPlayerByPart(hit, true, "Torso")
+local player = ToolsLivingEntity.GetPlayerByPart(hit, true, "Torso")
 ```
 
 ## Лицензия
