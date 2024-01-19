@@ -9,8 +9,8 @@ local CollectionService = game:GetService("CollectionService")
 
 -- См. Modules/Utils/Instance.lua
 local ToolsInstance = require(ServerScriptService.Modules.Tools:WaitForChild("Instance"))
--- См. Modules/Utils/Player.lua
-local ToolsPlayer = require(ServerScriptService.Modules.Tools:WaitForChild("Player"))
+-- См. Modules/Utils/LivingEntity.lua
+local ToolsLivingEntity = require(ServerScriptService.Modules.Tools:WaitForChild("LivingEntity"))
 -- См. Modules/Utils/Tags.lua
 local ToolsTags = require(ServerScriptService.Modules.Tools:WaitForChild("Tags"))
 
@@ -19,18 +19,18 @@ local ToolsTags = require(ServerScriptService.Modules.Tools:WaitForChild("Tags")
 
 -- Обработчик тега
 -- Берёт humanoid у игрока и ставит хп в 0
-local function handlePlayerDeadWhenCollidePart(affectedPart: BasePart)
-	local humanoid = ToolsPlayer.GetPlayerHumanoidByPart(affectedPart)
+local function handleKillCharacterOnCollision(affectedPart: BasePart)
+	local humanoid = ToolsLivingEntity.GetPlayerHumanoidByPart(affectedPart)
 	if not humanoid then return end
 	
 	humanoid.Health = 0
 end
 
--- Инициализирует наш тег
+-- Регистрирует наш тег
 -- Проверяет явл-я ли BasePart, далее соединяет с обработчиком тега
-local function initPlayerDeadWhenCollidePart(object: BasePart)
+local function registerKillCharacterOnCollision(object: BasePart)
 	if object:IsA("BasePart") then
-		object.Touched:Connect(handlePlayerDeadWhenCollidePart)
+		object.Touched:Connect(handleKillCharacterOnCollision)
 	end
 end
 
@@ -38,7 +38,7 @@ end
 ToolsTags:Initialize()
 
 -- Добавление тега
-ToolsTags:Add("PlayerDeadWhenCollidePart", handlePlayerDeadWhenCollidePart, initPlayerDeadWhenCollidePart)
+ToolsTags:Add("KillCharacterOnCollision", handleKillCharacterOnCollision, registerKillCharacterOnCollision)
 
 -- Привязываем
 ToolsTags:Update()
