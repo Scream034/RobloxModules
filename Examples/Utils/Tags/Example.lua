@@ -38,7 +38,7 @@ end
 ToolsTags:Initialize()
 
 -- Добавление тега
-ToolsTags:Add("KillCharacterOnCollision", handleKillCharacterOnCollision, registerKillCharacterOnCollision)
+ToolsTags:Add("KillCharacterOnCollision", registerKillCharacterOnCollision)
 
 -- Привязываем
 ToolsTags:Update()
