@@ -6,20 +6,21 @@
 
 ## Использование (пример)
 
-1. Скопируйте скрипт из файла `Helper/General`.
+1. Скопируйте скрипт из файла `Utils/LivingEntity`.
 2. Вставьте в ваш проект `Roblox studio`.
    - В папку `ReplicatedStorage` (Или другие)
 
 ## Пример использования
 
 ```lua
--- Загрузка скрипта Helper/General
-local ToolsLivingEntity = require(path.to.Helper:WaitForChild("LivingEntity"))
+-- Загрузка скрипта Utils/LivingEntity
+local ToolsLivingEntity = require(path.to.Utils:WaitForChild("LivingEntity"))
 
 local hit = path.to.hit -- Парт хита
 
 -- Получить игрока по парту UpperTorso
 local player = ToolsLivingEntity.GetPlayerByPart(hit, true, "Torso")
+print(player)
 ```
 
 ## Лицензия
