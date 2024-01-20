@@ -39,7 +39,7 @@ function Module.Initialize()
 			if not succes then continue end
 			
 			for _, instance in pairs(CollectionService:GetTagged(Tag[1])) do
-				Tag[2]()
+				Tag[2](instance)
 			end
 		end
 	end
