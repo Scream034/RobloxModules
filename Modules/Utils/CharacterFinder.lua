@@ -23,7 +23,7 @@ function Module.GethumanoidByPart(part: BasePart, enableExactSearchMethod: boole
 
 	local humanoid = character:FindFirstChildOfClass("Humanoid")
 	if not (humanoid and humanoid.Health > 0) then return end
-
+	
 	return humanoid
 end
 

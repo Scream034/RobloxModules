@@ -19,7 +19,7 @@ function Module.RemoveElementsUntilIndex(table: {}, endIndex: number): {}
 	return tbl
 end
 
---- Обновить ключи, которые указаны
+--- Обновить уже существующие ключи на новые
 --- @param table {}: Исходная таблица
 --- @param keyMappings {}: Ключи, которые нужно обновить
 --- @return {}: Таблицу с обновлёнными элементами
