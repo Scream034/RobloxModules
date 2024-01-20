@@ -27,7 +27,7 @@ end
 function Module.ApplyForceFromLook(basePart: BasePart, basePartLook: BasePart, velocity: Vector3, duration: number?): ()
 	duration = duration or 0.005
 
-	Module.ApplyImpulse(basePart, basePartLook.CFrame.LookVector * velocity, duration)
+	Module.ApplyForce(basePart, basePartLook.CFrame.LookVector * velocity, duration)
 end
 
 return Module
