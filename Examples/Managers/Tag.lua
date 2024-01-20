@@ -8,9 +8,9 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local CollectionService = game:GetService("CollectionService")
 
 -- См. Modules/Utils/Path.lua
-local PathUtils = require(ServerScriptService.Modules.Tools:WaitForChild("Path"))
+local PathUtils = require(ServerScriptService.Modules.Utils:WaitForChild("Path"))
 -- См. Modules/Utils/CharacterFinder.lua
-local CharacterFinder = require(ServerScriptService.Modules.Tools:WaitForChild("CharacterFinder"))
+local CharacterFinder = require(ServerScriptService.Modules.Utils:WaitForChild("CharacterFinder"))
 -- См. Modules/Managers/Tags.lua
 local TagsManager = require(ServerScriptService.Modules.Managers:WaitForChild("Tags"))
 
