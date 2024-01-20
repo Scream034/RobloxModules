@@ -3,11 +3,11 @@
 
 local Module = {}
 
---- Применяет импульса силы на время.
---- @param basePart BasePart: Оригинальный парт.
---- @param velocity Vector3: Сила и напраление.
---- @param duration number?: (Опционально) Время импульса.
-function Module.ApplyImpulse(basePart: BasePart, velocity: Vector3, duration: number?): ()
+--- Применяет силу на время
+--- @param basePart BasePart: Оригинальный парт
+--- @param velocity Vector3: Сила и напраление
+--- @param duration number?: (Опционально) Время импульса
+function Module.ApplyForce(basePart: BasePart, velocity: Vector3, duration: number?): ()
 	duration = duration or 0.005
 	
 	local bodyVelocity = Instance.new("BodyVelocity", basePart)
@@ -19,12 +19,12 @@ function Module.ApplyImpulse(basePart: BasePart, velocity: Vector3, duration: nu
 	bodyVelocity:Remove()
 end
 
---- Применяет импульса силы в сторону, куда смотрит переданный парт на время.
---- @param basePart BasePart: Оригинальный парт.
---- @param basePartLook BasePart: Парт для направления.
---- @param velocity Vector3: Сила и напраление.
---- @param duration number?: (Опционально) Время импульса.
-function Module.ApplyImpulseFromLook(basePart: BasePart, basePartLook: BasePart, velocity: Vector3, duration: number?): ()
+--- Применяет силу на время, в сторону куда смотрит переданный парт
+--- @param basePart BasePart: Оригинальный парт
+--- @param basePartLook BasePart: Парт для направления
+--- @param velocity Vector3: Сила и напраление
+--- @param duration number?: (Опционально) Время импульса
+function Module.ApplyForceFromLook(basePart: BasePart, basePartLook: BasePart, velocity: Vector3, duration: number?): ()
 	duration = duration or 0.005
 
 	Module.ApplyImpulse(basePart, basePartLook.CFrame.LookVector * velocity, duration)
