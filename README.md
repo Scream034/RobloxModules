@@ -5,15 +5,15 @@
 
 ## Использование (пример)
 
-1. Скопируйте скрипт из файла `Tools/CharacterFinder`.
+1. Скопируйте скрипт из файла `Utils/CharacterFinder`.
 2. Вставьте в ваш проект `Roblox studio`.
    - В папку `ReplicatedStorage` (Или другие)
 
 ## Пример использования
 
 ```lua
--- Загрузка скрипта Tools/CharacterFinder
-local CharacterFinder = require(path.to.Tools:WaitForChild("CharacterFinder"))
+-- Загрузка скрипта Utils/CharacterFinder
+local CharacterFinder = require(path.to.Utils:WaitForChild("CharacterFinder"))
 
 local targetPart = path.to.Part -- путь до вашего парта
 
