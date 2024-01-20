@@ -6,21 +6,23 @@
 
 ## Использование (пример)
 
-1. Скопируйте скрипт из файла `Utils/LivingEntity`.
+1. Скопируйте скрипт из файла `Tools/CharacterFinder`.
 2. Вставьте в ваш проект `Roblox studio`.
    - В папку `ReplicatedStorage` (Или другие)
 
 ## Пример использования
 
 ```lua
--- Загрузка скрипта Utils/LivingEntity
-local ToolsLivingEntity = require(path.to.Utils:WaitForChild("LivingEntity"))
+-- Загрузка скрипта Tools/CharacterFinder
+local CharacterFinder = require(path.to.Tools:WaitForChild("CharacterFinder"))
 
-local hit = path.to.hit -- Парт хита
+local targetPart = path.to.Part -- путь до вашего парта
 
--- Получить игрока по парту UpperTorso
-local player = ToolsLivingEntity.GetPlayerByPart(hit, true, "Torso")
-print(player)
+-- Получить игрока по парту, в котором, в имени есть строка "Torso"
+local player = CharacterFinder.GetPlayerByPart(targetPart, false, "Torso")
+
+-- Выводим имя игрока, если нет, тогда "Не найден игрок"
+print(player.Name or "Не найден игрок")
 ```
 
 ## Лицензия
