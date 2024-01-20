@@ -7,12 +7,12 @@ local ServerScriptService = game:GetService("ServerScriptService")
 -- Доступ к тегам
 local CollectionService = game:GetService("CollectionService")
 
--- См. Modules/Utils/Instance.lua
-local ToolsInstance = require(ServerScriptService.Modules.Tools:WaitForChild("Instance"))
--- См. Modules/Utils/LivingEntity.lua
-local ToolsLivingEntity = require(ServerScriptService.Modules.Tools:WaitForChild("LivingEntity"))
--- См. Modules/Utils/Tags.lua
-local ToolsTags = require(ServerScriptService.Modules.Tools:WaitForChild("Tags"))
+-- См. Modules/Utils/Path.lua
+local PathUtils = require(ServerScriptService.Modules.Tools:WaitForChild("Path"))
+-- См. Modules/Utils/CharacterFinder.lua
+local CharacterFinder = require(ServerScriptService.Modules.Tools:WaitForChild("CharacterFinder"))
+-- См. Modules/Managers/Tags.lua
+local TagsManager = require(ServerScriptService.Modules.Managers:WaitForChild("Tags"))
 
 
 ---- Если игрок прикоснулся к парту - смерть
@@ -20,7 +20,7 @@ local ToolsTags = require(ServerScriptService.Modules.Tools:WaitForChild("Tags")
 -- Обработчик тега
 -- Берёт humanoid у игрока и ставит хп в 0
 local function handleKillCharacterOnCollision(affectedPart: BasePart)
-	local humanoid = ToolsLivingEntity.GetPlayerHumanoidByPart(affectedPart)
+	local humanoid = CharacterFinder.GetPlayerHumanoidByPart(affectedPart)
 	if not humanoid then return end
 	
 	humanoid.Health = 0
@@ -35,10 +35,10 @@ local function registerKillCharacterOnCollision(object: BasePart)
 end
 
 -- Создание модуля
-ToolsTags:Initialize()
+local Tags = TagsManager:Initialize()
 
 -- Добавление тега
-ToolsTags:Add("KillCharacterOnCollision", registerKillCharacterOnCollision)
+Tags:Add("KillCharacterOnCollision", registerKillCharacterOnCollision)
 
 -- Привязываем
-ToolsTags:Update()
+Tags:Update()
