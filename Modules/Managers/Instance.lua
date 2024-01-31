@@ -27,7 +27,7 @@ end
 --- Параметры:
 ---- from = Объект, из которого копируются дочерние элементы.
 ---- param = Объект, в который копируются дочерние элементы.
-function Module.CopyChildren(from: Instance, to: Instance): ()
+function Module.CopyChildren(from: Instance, to: Instance): never
 	for _, Child in ipairs(from:GetChildren()) do
 		local Clone = Child:Clone()
 		Clone.Parent = to

@@ -9,7 +9,7 @@ local Module = {}
 ---- basePart = Оригинальный парт.
 ---- velocity = Сила и напраление.
 ---- duration = (Опционально) Время импульса.
-function Module.ApplyForce(basePart: BasePart, velocity: Vector3, duration: number?)
+function Module.ApplyForce(basePart: BasePart, velocity: Vector3, duration: number?): never
 	duration = duration or 0.005
 
 	local bodyVelocity = Instance.new("BodyVelocity", basePart)
@@ -28,7 +28,7 @@ end
 ---- basePartLook =  Парт для направления.
 ---- velocity = Сила и напраление.
 ---- duration = (Опционально) Время импульса.
-function Module.ApplyForceFromLook(basePart: BasePart, basePartLook: BasePart, velocity: Vector3, duration: number?)
+function Module.ApplyForceFromLook(basePart: BasePart, basePartLook: BasePart, velocity: Vector3, duration: number?): never
 	duration = duration or 0.005
 
 	Module.ApplyForce(basePart, basePartLook.CFrame.LookVector * velocity, duration)

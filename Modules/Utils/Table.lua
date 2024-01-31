@@ -28,10 +28,7 @@ end
 --- Параметры:
 ---- table = Исходная таблица.
 ---- keyMappings = Ключи, которые нужно обновить.
---
---- Возращает:
---- {} = Таблицу с обновлёнными элементами.
-function Module.UpdateExistingKeys(table: {}, keyMappings: {})
+function Module.UpdateExistingKeys(table: {}, keyMappings: {}): never
 	for oldKey, newKey in pairs(keyMappings) do
 		if table[oldKey] ~= nil then
 			table[newKey] = table[oldKey]

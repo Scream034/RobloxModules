@@ -13,7 +13,7 @@ local Module = {}
 ---- isWait = Ожидать ли окончания проигрывания звука перед удалением объекта Part.
 ---- looped = (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
 ---- callback = (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
-function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): ()
+function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): never
 	local part = Instance.new("Part", workspace)
 	part.Name = "SoundPart_" .. tostring(id)
 	part.Anchored = true
