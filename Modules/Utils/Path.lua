@@ -1,11 +1,16 @@
--- Для простой работы с путями у объектов роблокс
+-- Для простой работы с путями у объектов роблокс.
 -- Автор: paralax034
 
 local Module = {}
 
---- Получить полный путь объекта от Workspace
---- @param instance Instance: Исходный объект
---- @return string?: Конечный путь
+-- Получить полный путь объекта от Workspace только по слешу '/'.
+--
+--- Параметры:
+---- instance = Исходный объект.
+--
+--- Возращает:
+---- string = Конечный путь.
+---- nil = Если объекта нет в вашей игре.
 function Module.GetInstancePath(instance: Instance): string?
 	if not instance:IsDescendantOf(game) then
 		return nil
@@ -22,9 +27,14 @@ function Module.GetInstancePath(instance: Instance): string?
 	return path
 end
 
---- Найти объект по пути только по слешу '/'
---- @param path string: Путь до объекта
---- @return Instance?: Конечный объект
+-- Найти объект по пути только по слешу '/'.
+--
+--- Параметры:
+---- path = Путь до объекта.
+--
+--- Возращает:
+---- Instance = Конечный объект.
+---- nil = Если объекта нет в вашей игре.
 function Module.GetInstanceFromPath(path: string): Instance?
 	local parts = path:split("/")
 	local result = game

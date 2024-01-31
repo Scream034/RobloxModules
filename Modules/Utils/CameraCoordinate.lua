@@ -1,13 +1,17 @@
--- Всё для лёгкой работы с камерой
+-- Всё для лёгкой работы с камерой.
 -- Автор: paralax034
 
 local Module = {}
 
---- Получение позиции и углов из камеры
---- @param camera Camera: Камера игрока
---- @param positionOffset Vector3?: Смещение позиции
---- @param rotationOffset Vector3?: Смещение углов
---- @return table: Объект с позицией, углами и направлением камеры
+-- Получение позиции и углов из камеры.
+--
+--- Параметры:
+---- camera = Камера игрока.
+---- positionOffset = Смещение позиции.
+---- rotationOffset = Смещение углов.
+--
+--- Возращает:
+---- table = Объект с позицией, углами и направлением камеры.
 function Module.GetPositionAndAnglesFromCamera(camera: Camera, positionOffset: Vector3?, rotationOffset: Vector3?)
 	assert(typeof(camera) == "Instance" and camera:IsA("Camera"), "Camera must be an instance of the Camera object.")
 

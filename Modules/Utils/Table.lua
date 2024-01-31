@@ -1,12 +1,16 @@
--- Утилита для таблиц и массивов
+-- Утилита для таблиц и массивов.
 -- Автор: paralax034
 
 local Module = {}
 
---- Удалить все элементы из таблицы до номера
---- @param table {}: Исходная таблица
---- @param endIndex number: Номер
---- @return {}: Таблицу с удалёнными элементами
+-- Удалить все элементы из таблицы до номера.
+--
+--- Параметры:
+---- table = Исходная таблица.
+---- endIndex = Номер до которого будут удалены.
+--
+--- Возращает:
+--- {} = Таблицу с удалёнными элементами.
 function Module.RemoveElementsUntilIndex(table: {}, endIndex: number): {}
 	local tbl = table.clone(table)
 
@@ -19,10 +23,14 @@ function Module.RemoveElementsUntilIndex(table: {}, endIndex: number): {}
 	return tbl
 end
 
---- Обновить уже существующие ключи на новые
---- @param table {}: Исходная таблица
---- @param keyMappings {}: Ключи, которые нужно обновить
---- @return {}: Таблицу с обновлёнными элементами
+--- Обновить уже существующие ключи на новые.
+--
+--- Параметры:
+---- table = Исходная таблица.
+---- keyMappings = Ключи, которые нужно обновить.
+--
+--- Возращает:
+--- {} = Таблицу с обновлёнными элементами.
 function Module.UpdateExistingKeys(table: {}, keyMappings: {})
 	for oldKey, newKey in pairs(keyMappings) do
 		if table[oldKey] ~= nil then

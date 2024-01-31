@@ -3,10 +3,14 @@
 
 local Module = {}
 
---- Получает все элементы по типу
---- @param from Instance: Объект, в котором будет поиск
---- @param typeIs string: Тип нужных объектов
---- @return {}?:  Массив всех найденных объектов
+-- Получает все элементы по типу
+--
+--- Параметры:
+---- from = Объект, в котором будет поиск
+---- typeIs = Тип нужных объектов
+--
+--- Возращает:
+---- {} = Массив всех найденных объектов, может содержать НИЧЕГО.
 function Module.GetAllElementsOfType(from: Instance, typeIs: string)
 	local elements = {}
 	for _, element in pairs(from:GetDescendants()) do
@@ -18,9 +22,11 @@ function Module.GetAllElementsOfType(from: Instance, typeIs: string)
 	return elements
 end
 
---- Копирует все дочерние элементы из одного объекта в другой.
---- @param from Instance: Объект, из которого копируются дочерние элементы.
---- @param to Instance: Объект, в который копируются дочерние элементы.
+-- Копирует все дочерние элементы из одного объекта в другой.
+--
+--- Параметры:
+---- from = Объект, из которого копируются дочерние элементы.
+---- param = Объект, в который копируются дочерние элементы.
 function Module.CopyChildren(from: Instance, to: Instance): ()
 	for _, Child in ipairs(from:GetChildren()) do
 		local Clone = Child:Clone()

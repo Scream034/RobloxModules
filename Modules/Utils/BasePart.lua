@@ -1,11 +1,15 @@
--- Вспомогательные функции для работы с BasePart
+-- Вспомогательные функции для работы с BasePart.
 -- Автор: paralax034
 
 local Module = {}
 
---- Получение координат позиций границ парта
---- @param basePart BasePart: 3D-объект
---- @return table: Координаты границ парта (Min Vector3, Max Vector3)
+-- Получение координат позиций границ парта.
+--
+--- Параметры:
+---- basePart = 3D-объект.
+--
+--- Возращает:
+---- table: Координаты границ парта (Min Vector3, Max Vector3).
 function Module.GetBasePartBounds(basePart: BasePart)
 	local size = basePart.Size
 	local position = basePart.Position

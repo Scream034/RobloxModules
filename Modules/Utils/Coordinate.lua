@@ -3,12 +3,16 @@
 
 local Module = {}
 
---- Получение позиции относительно нормали
---- @param originCFrame CFrame: Исходный CFrame
---- @param originSize Vector3: Исходный размер
---- @param normalId Enum.NormalId: Номер нормали
---- @param offset Vector3?: (Опционально) Смещение
---- @return Vector3: Конечную позицию
+-- Получение позици на нормале
+--
+--- Параметры:
+---- originCFrame = Исходный CFrame
+---- originSize = Исходный размер
+---- normalId = Айди нормали
+---- offset = (Опционально) Смещение
+--
+--- Возращает:
+---- Vector3 = Конечную позицию
 function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, normalId: Enum.NormalId, positionOffset: Vector3?): Vector3
 	positionOffset = positionOffset or Vector3.zero
 	local result = Vector3.zero
@@ -30,11 +34,16 @@ function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, n
 	return result
 end
 
---- Получение нормали по заданной позиции
---- @param originCFrame CFrame: Исходный CFrame
---- @param originSize Vector3: Исходный размер
---- @param position Vector3: Заданная позиция
---- @return Enum.NormalId?: Нормаль, в которой позиция или ничего
+-- Получение позици на нормале
+--
+--- Параметры:
+---- originCFrame = Исходный CFrame
+---- originSize = Исходный размер
+---- position = Позиция объекта
+--
+--- Возращает:
+---- Enum.NormalId = Нормаль относительно указанной позиции
+---- nil = Если нормаль не нашлась, относительно указанной позиции
 function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Vector3, position: Vector3): Enum.NormalId?
 	local originCenter = originCFrame.Position
 	local positionVector = (position - originCenter).Unit

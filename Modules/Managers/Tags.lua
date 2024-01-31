@@ -1,18 +1,19 @@
 -- Упрощает работу с тегами в Roblox
--- Находится в тестах
 -- Автор: paralax034
 
 local CollectionService = game:GetService("CollectionService")
 
 local Module = {}
 
---- Инициализация модуля
+-- Инициализация модуля
 function Module.Initialize()
 	local tagsManager = {}
 
-	--- Добавить новый тег и зарегистрировать его
-	--- @param string tagName: Имя тега
-	--- @param function registerFn: Имя функции регистрации тега
+	-- Добавить новый тег и зарегистрировать его
+	--
+	--- Параметры:
+	---- tagName = Имя тега
+	---- registerFn = Имя функции регистрации тега
 	function tagsManager:Add(tagName: string, tagRegisteredCallback: "function", unregisterTagCallback: "function"?)
 		unregisterTagCallback = unregisterTagCallback or function()
 			tagsManager[tagName] = nil
@@ -25,13 +26,15 @@ function Module.Initialize()
 	end
 
 	--- Удалить тег
-	--- @param string tagName: Имя тега
+	--
+	--- Параметр:
+	---- tagName = Имя тега
 	function tagsManager:Remove(tagName: string)
 		tagsManager[tagName][3]()
 	end
 
-	--- Обновить тег, точнее инициализировать функции указанные у тегов. вызывается в конце или после Add()
-	--- @param string tagName: Имя тега
+	--- Обновить тег, точнее инициализировать функции указанные у тегов.
+	--- Вызывается в конце или после Add()
 	function tagsManager:Update()
 		for _, Tag in pairs(tagsManager) do
 			-- Чтобы не было лишних ошибок

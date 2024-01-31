@@ -1,17 +1,19 @@
--- Для работы со звуками
+-- Для простой работы со звуками.
 -- Автор: paralax034
 
 local Module = {}
 
---- Создаёт звук и воспроизводит его, затем удаляет или циклирует.
---- @param originPart BasePart: Парт, относительно которого проигрывается звук.
---- @param id number: ID звука из каталога Roblox.
---- @param minDistance number: Минимальное расстояние, на котором звук всегда будет слышен.
---- @param maxDistance number: Максимальное расстояние, на котором звук будет слышен с уменьшением громкости соответствующим образом.
---- @param isWait boolean: Ожидать ли окончания проигрывания звука перед удалением объекта Part.
---- @param looped boolean?: (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
---- @param callback any?: (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
-function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: any?): ()
+-- Создаёт звук и воспроизводит его, затем удаляет или циклирует.
+--
+--- Параметры:
+---- originPart = Парт, относительно которого проигрывается звук.
+---- id = ID звука из каталога Roblox.
+---- minDistance = Минимальное расстояние, на котором звук всегда будет слышен.
+---- maxDistance = Максимальное расстояние, на котором звук будет слышен с уменьшением громкости соответствующим образом.
+---- isWait = Ожидать ли окончания проигрывания звука перед удалением объекта Part.
+---- looped = (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
+---- callback = (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
+function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): ()
 	local part = Instance.new("Part", workspace)
 	part.Name = "SoundPart_" .. tostring(id)
 	part.Anchored = true
