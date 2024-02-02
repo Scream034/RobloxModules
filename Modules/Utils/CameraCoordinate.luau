@@ -31,4 +31,4 @@ function Module.GetPositionAndAnglesFromCamera(camera: Camera, positionOffset: V
 	}
 end
 
-return Module
+return table.freeze(Module)

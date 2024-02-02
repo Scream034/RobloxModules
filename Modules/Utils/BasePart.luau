@@ -27,4 +27,4 @@ function Module.GetBasePartBounds(basePart: BasePart)
 	}
 end
 
-return Module
+return table.freeze(Module)

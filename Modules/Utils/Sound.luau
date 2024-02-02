@@ -51,4 +51,4 @@ function Module.Play(originPart: BasePart, id: number, minDistance: number, maxD
 	end
 end
 
-return Module
+return table.freeze(Module)

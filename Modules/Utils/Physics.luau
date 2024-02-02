@@ -34,4 +34,4 @@ function Module.ApplyForceFromLook(basePart: BasePart, basePartLook: BasePart, v
 	Module.ApplyForce(basePart, basePartLook.CFrame.LookVector * velocity, duration)
 end
 
-return Module
+return table.freeze(Module)

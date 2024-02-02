@@ -58,4 +58,4 @@ function Module.GetPlayerByPart(part: BasePart, enableExactSearchMethod: boolean
 	return PlayersService:GetPlayerFromcharacter(character)
 end
 
-return Module
+return table.freeze(Module)

@@ -37,4 +37,4 @@ function Module.UpdateExistingKeys(table: {}, keyMappings: {}): never
 	end
 end
 
-return Module
+return table.freeze(Module)

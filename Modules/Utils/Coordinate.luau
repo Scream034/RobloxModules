@@ -82,3 +82,5 @@ function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Ve
 
 	return nil
 end
+
+return table.freeze(Module)

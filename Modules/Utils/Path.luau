@@ -50,4 +50,4 @@ function Module.GetInstanceFromPath(path: string): Instance?
 	return result
 end
 
-return Module
+return table.freeze(Module)

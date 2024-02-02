@@ -70,4 +70,4 @@ function Module.Initialize()
 	return setmetatable(tagsManager, {__index = Module})
 end
 
-return Module
+return table.freeze(Module)
