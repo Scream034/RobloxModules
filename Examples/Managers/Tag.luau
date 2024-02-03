@@ -12,7 +12,7 @@ local PathUtils = require(ServerScriptService.Modules.Utils:WaitForChild("Path")
 -- См. Modules/Utils/CharacterFinder.lua
 local CharacterFinder = require(ServerScriptService.Modules.Utils:WaitForChild("CharacterFinder"))
 -- См. Modules/Managers/Tags.lua
-local TagsManager = require(ServerScriptService.Modules.Managers:WaitForChild("Tags"))
+local TagsManager = require(ServerScriptService.Modules.Managers:WaitForChild("Tag"))
 
 
 ---- Если игрок прикоснулся к парту - смерть
