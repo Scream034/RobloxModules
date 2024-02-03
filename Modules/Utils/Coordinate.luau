@@ -1,21 +1,11 @@
--- Утилита для работы с математикой координат
--- Автор: paralax034
+--!strict
+--!native
 
 local Module = {}
 
--- Получение позици на нормале
---
---- Параметры:
----- originCFrame = Исходный CFrame
----- originSize = Исходный размер
----- normalId = Айди нормали
----- offset = (Опционально) Смещение
---
---- Возращает:
----- Vector3 = Конечную позицию
 function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, normalId: Enum.NormalId, positionOffset: Vector3?): Vector3
-	positionOffset = positionOffset or Vector3.zero
-	local result = Vector3.zero
+	local positionOffset = positionOffset or Vector3.zero
+	local result: Vector3?
 
 	if normalId == Enum.NormalId.Right then
 		result = originCframe:PointToWorldSpace(Vector3.new(originSize.X, 0, 0) + positionOffset)
@@ -31,45 +21,32 @@ function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, n
 		result = originCframe:PointToWorldSpace(Vector3.new(0, -originSize.Y, 0) + positionOffset)
 	end
 
-	return result
+	return result or Vector3.zero
 end
 
--- Получение позици на нормале
---
---- Параметры:
----- originCFrame = Исходный CFrame
----- originSize = Исходный размер
----- position = Позиция объекта
---
---- Возращает:
----- Enum.NormalId = Нормаль относительно указанной позиции
----- nil = Если нормаль не нашлась, относительно указанной позиции
 function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Vector3, position: Vector3): Enum.NormalId?
 	local originCenter = originCFrame.Position
 	local positionVector = (position - originCenter).Unit
+	
+	assert(positionVector.Magnitude ~= 0, "The position is in the center of the object!")
 
-	if positionVector.Magnitude == 0 then
-		warn("The position is in the center of the object!")
-		return nil
-	end
+	local xVector, yVector, zVector = 
+		originCFrame.RightVector, 
+		originCFrame.UpVector, 
+		originCFrame.LookVector
 
-	local xVector = originCFrame.RightVector
-	local yVector = originCFrame.UpVector
-	local zVector = originCFrame.LookVector
+	local dotX, dotY, dotZ = 
+		positionVector:Dot(xVector),
+		positionVector:Dot(yVector),
+		positionVector:Dot(zVector)
+	
+	assert(dotX ~= 0 and dotY ~= 0 and dotZ ~= 0, "The position is outside the object.")
 
-	local dotX = positionVector:Dot(xVector)
-	local dotY = positionVector:Dot(yVector)
-	local dotZ = positionVector:Dot(zVector)
-
-	if dotX == 0 and dotY == 0 and dotZ == 0 then
-		warn("The position is outside the object!")
-		return nil
-	end
-
-	local absX = math.abs(dotX)
-	local absY = math.abs(dotY)
-	local absZ = math.abs(dotZ)
-
+	local absX, absY, absZ = 
+		math.abs(dotX), 
+		math.abs(dotY), 
+		math.abs(dotZ)
+	
 	local maxDot = math.max(absX, absY, absZ)
 
 	if maxDot == absX then

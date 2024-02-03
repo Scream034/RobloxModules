@@ -1,30 +1,38 @@
--- Важная информация!
---
---- ToggleEvent - Возращает:
----- -1 = дверь закрыта
----- 0 = дверь заперта на ключ
----- 1 = дверь открыта
---
---- У двери должны быть аттрибуты:
----- Opened = boolean - открыта ли дверь
----- OpenCFrame = CFrame - CFrame в открытом положении
----- CloseCFrame = CFrame - CFrame в закрытом положении
----- Locked = boolean - заперта ли дверь на ключ
+--!strict
+--!native
 
+--[[ 
+		Важная информация!
 
-local Module = {}
+	ToggleEvent - Возращает:
+		-1 = дверь закрыта
+		0 = дверь заперта на ключ
+		1 = дверь открыта
 
---- Параметры:
----- movingModel = Модель, которую нужно двигать
----- onOpen = Функция при открытии двери
----- onClose = Функция при закрытии двери
-function Module.New(movingModel: Model,
-	onOpen: "function"?, onClose: "function"?)
+	У двери должны быть аттрибуты:
+		Opened = boolean - открыта ли дверь
+		OpenCFrame = CFrame - CFrame в открытом положении
+		CloseCFrame = CFrame - CFrame в закрытом положении
+		Locked = boolean - заперта ли дверь на ключ
+]]
+
+local Types = require(game:GetService("ServerScriptService"):FindFirstChild("Modules"):WaitForChild("Types"))
+
+--[[
+	Параметры:
+		movingModel = Модель, которую нужно двигать
+		childOpen = Функция при открытии двери
+		childClose = Функция при закрытии двери
+]]
+return function(movingModel: Model, childOpen: () -> (), childClose: () -> ()): Types.IBaseDoor
+	childOpen = childOpen or function() end
+	childClose = childClose or function() end
 	
-	-- Проверяю есть ли родитель у переданной модели
-	assert(movingModel.Parent, "The MovingModel does not have a parent!")
+	-- Проверяю есть ли родитель у переданной модели, также на PrimaryPart
+	assert(typeof(movingModel.Parent) ~= "Model", "The MovingModel does not have a parent with the Model class!")
+	assert(typeof(movingModel.PrimaryPart) ~= "Part", "The MovingModel does not have a PrimaryPart with the Part class!")
 	
-	local parent = movingModel.Parent
+	local parent: Model = movingModel.Parent
 	
 	assert(parent:GetAttribute("Opened") ~= nil and
 		parent:GetAttribute("OpenCFrame") ~= nil and
@@ -33,19 +41,19 @@ function Module.New(movingModel: Model,
 		"The MovingModel parent is missing one or more required attributes: Opened, OpenCFrame, CloseCFrame, Locked!")
 	
 	local baseDoor = {}
-	local events = Instance.new("BindableEvent", movingModel.Parent)
+	local events: BindableEvent = Instance.new("BindableEvent", movingModel.Parent)
 	events.Name = "ToggleEvent"
 	
 	-- Сообщает что дверь закрыта через событие
-	local function sendLockedEvent(locked: boolean): never
+	local function sendLockedEvent(locked: boolean): ()
 		if locked then
 			events:Fire(0)
 		end
 	end
 	
 	-- Отрывает или закрывает дверь основываясь на её состоянии
-	function baseDoor:Toggle(): never
-		local locked = parent:GetAttribute("Locked")
+	function baseDoor:Toggle(): ()
+		local locked: boolean = parent:GetAttribute("Locked")
 		sendLockedEvent(locked)
 		if locked then return end
 		
@@ -57,20 +65,18 @@ function Module.New(movingModel: Model,
 	end
 	
 	-- Открывает дверь
-	function baseDoor:Open(): never
-		pcall(function() onOpen() end)
+	function baseDoor:Open(): ()
+		childOpen()
 		
 		events:Fire(1)
 	end
 	
 	-- Закрывает дверь
-	function baseDoor:Close(): never
-		pcall(function() onClose() end)
+	function baseDoor:Close(): ()
+		childClose()
 		
 		events:Fire(-1)
 	end
 	
-	return setmetatable(baseDoor, {__index = Module})
+	return baseDoor :: Types.IBaseDoor
 end
-
-return Module

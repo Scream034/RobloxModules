@@ -1,30 +1,28 @@
--- Вспомогательные функции для работы с BasePart.
--- Автор: paralax034
+--!strict
+--!native
 
 local Module = {}
 
--- Получение координат позиций границ парта.
---
---- Параметры:
----- basePart = 3D-объект.
---
---- Возращает:
----- table: Координаты границ парта (Min Vector3, Max Vector3).
-function Module.GetBasePartBounds(basePart: BasePart)
-	local size = basePart.Size
-	local position = basePart.Position
-	
-	local minX = position.X - size.X / 2
-	local maxX = position.X + size.X / 2
-	local minY = position.Y - size.Y / 2
-	local maxY = position.Y + size.Y / 2
-	local minZ = position.Z - size.Z / 2
-	local maxZ = position.Z + size.Z / 2
-	
-	return {
+function Module.GetBasePartBounds(basePart: BasePart): {Min: Vector3, Max: Vector3}
+	local size, position = 
+		basePart.Size,
+		basePart.Position
+
+	local minX, maxX, minY, maxY, minZ, maxZ = 
+		-- X
+		position.X - size.X / 2, 
+		position.X + size.X / 2,
+		-- Y
+		position.Y - size.Y / 2, 
+		position.Y + size.Y / 2,
+		-- Z
+		position.Z - size.Z / 2, 
+		position.Z + size.Z / 2
+
+	return table.freeze({
 		Min = Vector3.new(minX, minY, minZ),
 		Max = Vector3.new(maxX, maxY, maxZ)
-	}
+	})
 end
 
 return table.freeze(Module)
