@@ -5,34 +5,34 @@ local Module = {}
 
 local Signals = {}
 
-function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()}): ()
-	if Signals[signalName] then return Signals[signalName] end
+function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()})
+	assert(Signals[signalName] == nil, `A signal named {signalName} already exists.`)
 	
 	Signals[signalName] = callbacks
 end
 
-function Module.AddCallbackTo(signalName: string, callback: (...any) -> ()): ()
+function Module.AddCallbackTo(signalName: string, callback: (...any) -> ())
 	assert(Signals[signalName] ~= nil, `A signal named {signalName} was not found.`)	
 
 	table.insert(Signals[signalName], callback)
 end
 
-function Module.SetCallbackAt(signalName: string, callback: (...any) -> (), position: number): ()
+function Module.SetCallbackAt(signalName: string, callback: (...any) -> (), position: number)
 	assert(Signals[signalName] ~= nil, `A signal named {signalName} was not found.`)	
 	
 	Signals[signalName][position] = callback
 end
 
-function Module.RemoveCallbackAt(signalName: string, position: number): ()
+function Module.RemoveCallbackAt(signalName: string, position: number)
 	local signal = Signals[signalName]
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	local signalLength = #signal
-	assert(signalLength < position, `position ({position}) > length ({signalLength}) of Signals[{signalName}]`)
+	assert(position <= signalLength, `position ({position}) > length ({signalLength}) of Signals[{signalName}]`)
 	
 	table.remove(Signals[signalName], position)
 end
 
-function Module.FireTo(signalName: string, arguments: {[number]: {any}}): ()
+function Module.FireTo(signalName: string, arguments: {[number]: {any}})
 	local signal = Signals[signalName]
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	
