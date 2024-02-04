@@ -33,12 +33,12 @@ function Module.RemoveCallbackAt(signalName: string, position: number): ()
 	table.remove(Signals[signalName], position)
 end
 
-function Module.FireTo(signalName: string, arguments: {[number]: {any}}): ()
+function Module.FireTo(signalName: string, arguments: {[number]: {any}}, startIndex: number?, endIndex: number?): ()
 	local signal = Signals[signalName]
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	
-	for index, handler in ipairs(signal) do
-		handler(unpack(arguments[index]))
+	for index = startIndex or 1, endIndex or #arguments do
+		signal[1](arguments[index])
 	end
 end
 
