@@ -14,36 +14,17 @@ function Module.GetPositionOnNormal(originCframe: CFrame, originSize: Vector3, n
 end
 
 function Module.GetNormalRelativeToPosition(originCFrame: CFrame, originSize: Vector3, position: Vector3): Enum.NormalId?
-	local originCenter = originCFrame.Position
-	local positionVector = (position - originCenter).Unit
+	local localPosition = originCFrame:Inverse() * position
+	local relativePosition = localPosition / originSize
 
-	assert(positionVector.Magnitude ~= 0, "The position is in the center of the object!")
+	local maxAxis = math.max(math.abs(relativePosition.X), math.abs(relativePosition.Y), math.abs(relativePosition.Z))
 
-	local xVector, yVector, zVector = 
-		originCFrame.RightVector, 
-		originCFrame.UpVector, 
-		originCFrame.LookVector
-
-	local dotX, dotY, dotZ = 
-		positionVector:Dot(xVector),
-		positionVector:Dot(yVector),
-		positionVector:Dot(zVector)
-
-	assert(dotX ~= 0 and dotY ~= 0 and dotZ ~= 0, "The position is outside the object.")
-
-	local absX, absY, absZ = 
-		math.abs(dotX), 
-		math.abs(dotY), 
-		math.abs(dotZ)
-
-	local maxDot = math.max(absX, absY, absZ)
-
-	if maxDot == absX then
-		return dotX > 0 and Enum.NormalId.Right or Enum.NormalId.Left
-	elseif maxDot == absY then
-		return dotY > 0 and Enum.NormalId.Top or Enum.NormalId.Bottom
-	elseif maxDot == absZ then
-		return dotZ > 0 and Enum.NormalId.Front or Enum.NormalId.Back
+	if maxAxis == math.abs(relativePosition.X) then
+		return relativePosition.X > 0 and Enum.NormalId.Right or Enum.NormalId.Left
+	elseif maxAxis == math.abs(relativePosition.Y) then
+		return relativePosition.Y > 0 and Enum.NormalId.Top or Enum.NormalId.Bottom
+	elseif maxAxis == math.abs(relativePosition.Z) then
+		return relativePosition.Z > 0 and Enum.NormalId.Front or Enum.NormalId.Back
 	end
 
 	return nil
