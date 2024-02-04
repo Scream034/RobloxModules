@@ -12,7 +12,8 @@ function Module.Initialize()
 
 
 	function tagsManager:Add(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: () -> ())
-		unregisterTagCallback = unregisterTagCallback or function() end
+		assert(table.find(tags, tagName), `There is already a tag named {tagName}.`)
+		local unregisterTagCallback = unregisterTagCallback or function() end
 
 		table.insert(tags, tagName)
 		table.insert(tags, tagRegisteredCallback)
