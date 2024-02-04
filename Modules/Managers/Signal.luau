@@ -28,17 +28,17 @@ function Module.RemoveCallbackAt(signalName: string, position: number): ()
 	local signal = Signals[signalName]
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	local signalLength = #signal
-	assert(signalLength < position, `position ({position}) > length ({signalLength}) of Signals[{signalName}]`)
+	assert(signalLength <= position, `position ({position}) > length ({signalLength}) of Signals[{signalName}]`)
 	
 	table.remove(Signals[signalName], position)
 end
 
-function Module.FireTo(signalName: string, arguments: {[number]: {any}}, startIndex: number?, endIndex: number?): ()
+function Module.FireTo(signalName: string, arguments: {{}}, startIndex: number?, endIndex: number?): ()
 	local signal = Signals[signalName]
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	
 	for index = startIndex or 1, endIndex or #arguments do
-		signal[1](arguments[index])
+		signal[index](arguments[index] or arguments[1])
 	end
 end
 
