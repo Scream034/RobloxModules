@@ -10,14 +10,16 @@ function Module.GetPositionAndAnglesFromCamera(camera: Camera, positionOffset: V
 	local cframe = camera.CFrame
 	local position = cframe:PointToWorldSpace(positionOffset)
 	local rotation = Vector3.new(cframe:ToOrientation()) + rotationOffset
-	local degrees = Vector3.new(math.deg(rotation.X), math.deg(rotation.Y), math.deg(rotation.Z))
 
 	return table.freeze({
 		Position = position,
 		Rotation = rotation,
-		Degrees = degrees,
 		Look = cframe.LookVector
 	})
+end
+
+function Module.GetDegrees(rotation: Vector3)
+	return Vector3.new(math.deg(rotation.X), math.deg(rotation.Y), math.deg(rotation.Z))
 end
 
 return table.freeze(Module)
