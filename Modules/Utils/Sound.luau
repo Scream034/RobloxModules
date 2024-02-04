@@ -1,18 +1,7 @@
--- Для простой работы со звуками.
--- Автор: paralax034
+--!native
 
 local Module = {}
 
--- Создаёт звук и воспроизводит его, затем удаляет или циклирует.
---
---- Параметры:
----- originPart = Парт, относительно которого проигрывается звук.
----- id = ID звука из каталога Roblox.
----- minDistance = Минимальное расстояние, на котором звук всегда будет слышен.
----- maxDistance = Максимальное расстояние, на котором звук будет слышен с уменьшением громкости соответствующим образом.
----- isWait = Ожидать ли окончания проигрывания звука перед удалением объекта Part.
----- looped = (Опционально) Нужно ли циклически проигрывать звук. По умолчанию false.
----- callback = (Опционально) Функция обратного вызова, вызываемая после завершения проигрывания звука.
 function Module.Play(originPart: BasePart, id: number, minDistance: number, maxDistance: number, isWait: boolean, looped: boolean?, callback: "function"?): never
 	local part = Instance.new("Part", workspace)
 	part.Name = "SoundPart_" .. tostring(id)
