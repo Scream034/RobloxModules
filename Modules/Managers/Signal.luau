@@ -1,15 +1,35 @@
 --!strict
---!native
+
 
 local Module = {}
+Module.__index = Module
 
 local Signals = {}
 
-function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()}?): ()
-	assert(Signals[signalName] ~= nil, `A signal named {signalName} already exists.`)
+
+function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()}?): boolean
+	if Signals[signalName] ~= nil then return false end
 	local callbacks = callbacks or {} :: {(...any) -> ()}
 	
 	Signals[signalName] = callbacks
+	return true
+end
+
+function Module.RemoveSignal(signalName: string)
+	Signals[signalName] = nil
+end
+
+function Module.GetSignal(signalName: string): {Name: string, Callbacks: {(...any) -> ()}}?
+	local callbacks = Signals[signalName]
+	return callbacks and table.freeze{
+		Name = signalName,
+		Callbacks = callbacks
+	}
+end
+
+function Module.ReplaceSignal(signalName: string, newSignalName: string, newCallbacks: {(...any) -> ()})
+	Module.RemoveSignal(signalName)
+	Signals[newSignalName] = newCallbacks
 end
 
 function Module.AddCallbackTo(signalName: string, callback: (...any) -> ()): ()
@@ -38,7 +58,7 @@ function Module.FireTo(signalName: string, arguments: {{}}, startIndex: number?,
 	assert(signal ~= nil, `A signal named {signalName} was not found.`)
 	
 	for index = startIndex or 1, endIndex or #arguments do
-		signal[index](arguments[index] or arguments[1])
+		signal[index](unpack(arguments[index] or arguments[1]))
 	end
 end
 
