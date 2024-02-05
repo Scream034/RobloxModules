@@ -6,7 +6,7 @@ local Module = {}
 local Signals = {}
 
 function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()}?): ()
-	assert(Signals[signalName] == nil, `A signal named {signalName} already exists.`)
+	assert(Signals[signalName] ~= nil, `A signal named {signalName} already exists.`)
 	local callbacks = callbacks or {} :: {(...any) -> ()}
 	
 	Signals[signalName] = callbacks
