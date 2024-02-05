@@ -1,6 +1,8 @@
 --!strict
 --!native
 
+-- Deprecated --
+
 local Module = {}
 
 function Module.GetInstancePath(instance: Instance): string?
