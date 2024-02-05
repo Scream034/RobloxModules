@@ -66,7 +66,7 @@
 ### Возвращает:
 - `Enum.NormalId?`, нормаль, относительная к позиции, или nil, если нормаль не найдена.
 
-# Path.luau
+# Path.luau (Deprecated, use :GetFullName and FindFirstChild)
 
 ## Имя функции: `GetInstancePath(instance: Instance)`
 Функция возвращает путь к экземпляру.
