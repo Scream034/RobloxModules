@@ -1,5 +1,5 @@
 --!strict
-
+--!native
 
 local Module = {}
 Module.__index = Module
