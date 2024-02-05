@@ -68,10 +68,9 @@
 
 # Path.luau
 
-## Имя функции: `FindInstance(root: Instance, fullName: string)`
+## Имя функции: `FindInstance(fullName: string)`
 Функция возвращает экземпляр по пути (получить путь можно через *:GetFullName()*).
 ### Параметры:
-- `root`: Instance, откуда искать.
 - `fullName`: string, путь к экземпляру.
 ### Возращает:
 - `Instance?`, экземпляр, или nil, если экземпляр был не найден.
