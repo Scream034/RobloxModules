@@ -66,7 +66,17 @@
 ### Возвращает:
 - `Enum.NormalId?`, нормаль, относительная к позиции, или nil, если нормаль не найдена.
 
-# Path.luau (Deprecated, use :GetFullName and FindFirstChild)
+# Path.luau
+
+## Имя функции: `FindInstance(root: Instance, fullName: string)`
+Функция возвращает экземпляр по пути (получить путь можно через *:GetFullName()*).
+### Параметры:
+- `root`: Instance, откуда искать.
+- `fullName`: string, путь к экземпляру.
+### Возращает:
+- `Instance?`, экземпляр, или nil, если экземпляр был не найден.
+
+# OldPath.luau
 
 ## Имя функции: `GetInstancePath(instance: Instance)`
 Функция возвращает путь к экземпляру.
