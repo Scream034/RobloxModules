@@ -5,7 +5,7 @@ local Module = {}
 
 function Module.FindInstance(fullName: string): Instance?
 	local parts = string.split(fullName, ".")
-	local currentObject = nil
+	local currentObject = game
 
 	for _, part in ipairs(parts) do
 		currentObject = currentObject:FindFirstChild(part)
@@ -13,8 +13,8 @@ function Module.FindInstance(fullName: string): Instance?
 			return nil
 		end
 	end
-
-	return currentObject
+	
+	return currentObject.Name ~= "game" and currentObject or nil
 end
 
 return Module
