@@ -3,9 +3,9 @@
 
 local Module = {}
 
-function Module.FindInstance(root: Instance, fullName: string): Instance?
+function Module.FindInstance(fullName: string): Instance?
 	local parts = string.split(fullName, ".")
-	local currentObject = root
+	local currentObject = nil
 
 	for _, part in ipairs(parts) do
 		currentObject = currentObject:FindFirstChild(part)
