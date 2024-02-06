@@ -6,10 +6,7 @@ local SignalManager = {}
 local Signals = {}
 
 function SignalManager.AddSignal(name: string)
-	if Signals[name] then 
-		warn(`Signal already exists: {name}`)
-		return
-	end
+	if Signals[name] then error(`Signal already exists: {name}.`) end
 	
 	Signals[name] = {}
 end
