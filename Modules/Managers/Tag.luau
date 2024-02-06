@@ -5,58 +5,62 @@ local CollectionService = game:GetService("CollectionService")
 
 local Module = {}
 
-function Module.Initialize()
+return function()
 	local tagsManager = {}
-	local tags: {string | (Instance) -> ()} = {}
-	tagsManager.Tags = tags
+	local tags = {}
 
-
-	function tagsManager:Add(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: () -> ())
-		assert(table.find(tags, tagName), `There is already a tag named {tagName}.`)
+	tagsManager.Add = function(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: (() -> ())?)
+		if tags[tagName] then error(`There is already a tag named {tagName}.`) end
 		local unregisterTagCallback = unregisterTagCallback or function() end
 
-		table.insert(tags, tagName)
-		table.insert(tags, tagRegisteredCallback)
-		table.insert(tags, unregisterTagCallback)
+		tags[tagName] = {tagRegisteredCallback, unregisterTagCallback}
 	end
 
-	function tagsManager:Remove(tagName: string)
-		local position = table.find(tags, tagName) :: number
-		assert(position ~= nil, "No such tag was found.")
+	tagsManager.Remove = function(tagName: string)
+		local callbacks = tags[tagName]
+		if not callbacks then error("No such tag was found.") end
 
-		local unregisterTagCallback = tags[position + 2] :: () -> ()
+		local unregisterTagCallback = callbacks[2] :: () -> ()
 		unregisterTagCallback()
 
-		table.remove(tags, position)
-		table.remove(tags, position + 1)
-		table.remove(tags, position + 2)
+		tags[tagName] = nil
 	end
 
-	function tagsManager:Edit(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: () -> ())
-		local position = table.find(tags, tagName) :: number
-		assert(position ~= nil, "No such tag was found.")
+	tagsManager.Edit = function(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: (() -> ())?)
+		local callbacks = tags[tagName]
+		if not callbacks  then error("No such tag was found.") end
 
 		if unregisterTagCallback then
-			tags[position + 2] = unregisterTagCallback
+			callbacks[2] = unregisterTagCallback
 		end
 
-		tags[position + 1] = tagRegisteredCallback
+		callbacks[1] = tagRegisteredCallback
 	end
 
-	function tagsManager:Update()
-		for i = 1, #tags, 3 do
-			local tagName = tags[i] :: string
-			if not tagName then continue end
+	tagsManager.Apply = function(tagName: string)
+		local callbacks = tags[tagName]
+		if not callbacks  then error("No such tag was found.") end
 
-			local tagRegisteredCallback = tags[i + 1] :: (Instance) -> ()
+		local tagRegisteredCallback = callbacks[1]
 
-			for _, instance in pairs(CollectionService:GetTagged(tagName)) do
-				tagRegisteredCallback(instance)
-			end
+		for _, instance in pairs(CollectionService:GetTagged(tagName)) do
+			tagRegisteredCallback(instance)
+		end
+
+		CollectionService:GetInstanceAddedSignal(tagName):Connect(function(instance: Instance) 
+			tagRegisteredCallback(instance)
+		end)
+
+		CollectionService:GetInstanceRemovedSignal(tagName):Connect(function(instance: Instance) 
+			tagsManager.Remove(tagName)
+		end)
+	end
+	
+	tagsManager.ApplyAll = function()
+		for tagName, _ in pairs(tags) do
+			tagsManager.Apply(tagName)
 		end
 	end
 
 	return tagsManager
 end
-
-return table.freeze(Module)
