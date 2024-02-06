@@ -1,108 +1,73 @@
 --!strict
 --!native
 
-local Module = {}
-Module.__index = Module
+local SignalManager = {}
 
 local Signals = {}
 
-
-function Module.AddSignal(signalName: string, callbacks: {(...any) -> ()}?): boolean
-	if Signals[signalName] ~= nil then return false end
-	local callbacks = callbacks or {} :: {(...any) -> ()}
+function SignalManager.AddSignal(name: string)
+	if Signals[name] then 
+		warn(`Signal already exists: {name}`)
+		return
+	end
 	
-	Signals[signalName] = callbacks
-	return true
+	Signals[name] = {}
 end
 
-function Module.RemoveSignal(signalName: string)
-	Signals[signalName] = nil
+function SignalManager.RemoveSignal(name: string)
+	Signals[name] = nil
 end
 
-function Module.GetSignal(signalName: string): {Name: string, Callbacks: {(...any) -> ()}}?
-	local callbacks = Signals[signalName]
-	return callbacks and table.freeze{
-		Name = signalName,
-		Callbacks = callbacks
-	}
-end
-
-function Module.ReplaceSignal(signalName: string, newSignalName: string, newCallbacks: {(...any) -> ()})
-	Module.RemoveSignal(signalName)
-	Signals[newSignalName] = newCallbacks
-end
-
-function Module.AddCallbackTo(signalName: string, callback: (...any) -> ()): ()
-	assert(Signals[signalName] ~= nil, `A signal named {signalName} was not found.`)	
-
-	table.insert(Signals[signalName], callback)
-end
-
-function Module.SetCallbackAt(signalName: string, callback: (...any) -> (), position: number): ()
-	assert(Signals[signalName] ~= nil, `A signal named {signalName} was not found.`)	
+function SignalManager.Connect(name: string, func: (...any) -> (), index: number?)
+	local callbacks = Signals[name]
+	if not callbacks then error(`Signal does not exist: {name}.`) end
 	
-	Signals[signalName][position] = callback
+	if index then
+		callbacks[index] = func
+	else
+		table.insert(callbacks, func)
+	end
+
 end
 
-function Module.RemoveCallbackAt(signalName: string, position: number): ()
-	local signal = Signals[signalName]
-	assert(signal ~= nil, `A signal named {signalName} was not found.`)
-	local signalLength = #signal
-	assert(signalLength <= position, `position ({position}) > length ({signalLength}) of Signals[{signalName}]`)
+function SignalManager.FireRange(name: string, startIndex: number, endIndex: number, args: {{}})
+	if endIndex < 1 or endIndex < startIndex or endIndex > #args then
+		error("Invalid end index or arguments!")
+	end
+	if startIndex < 1 then
+		error("Invalid start index!")
+	end
 	
-	table.remove(Signals[signalName], position)
-end
+	local callbacks = Signals[name]
+	if not callbacks then error(`Signal does not exist: {name}.`) end
 
-function Module.FireTo(signalName: string, arguments: {{}}, startIndex: number?, endIndex: number?): ()
-	local signal = Signals[signalName]
-	assert(signal ~= nil, `A signal named {signalName} was not found.`)
-	
-	for index = startIndex or 1, endIndex or #arguments do
-		signal[index](unpack(arguments[index] or arguments[1]))
+	for i = startIndex, endIndex do
+		callbacks[i](unpack(args[i]))
 	end
 end
 
-function Module.WaitSignal(signalName: string, timeout: number?): boolean
+
+function SignalManager.WaitSignal(name: string, timeout: number?)
 	local timeout = timeout or 10
 	local startTime = os.clock()
 	
 	while true do
-		if Signals[signalName] then  
-			return true
+		if Signals[name] then return end
+		if os.clock() - startTime > timeout then
+			error(`Timeout exceeded while waiting for signal {name}.`)
 		end
-
-		local elapsedTime = os.clock() - startTime
-		if elapsedTime > timeout then
-			error(`Timeout exceeded while waiting for signal {signalName}.`) 
-		end
-
-		wait(0.1) 
+		wait(0.1)
 	end
-	
-	return false
 end
 
-function Module.WaitForCallbacksToReachLength(signalName: string, length: number, timeout: number?): boolean
-	assert(Signals[signalName] ~= nil, `A signal named {signalName} was not found.`)
-	local timeout = timeout or 10
-	
-	local startTime = os.clock()
-
-	while true do
-		if #Signals[signalName] >= length then  
-			return true
-		end
-
-		local elapsedTime = os.clock() - startTime
-		if elapsedTime > timeout then
-			error(`Timeout exceeded while waiting for the callbacks of signal {signalName} to reach the specified length.`) 
-		end
-
-		wait(0.1) 
-	end
-
-	return false
+function SignalManager.WaitSignalAndFireRange(name: string, startIndex: number, endIndex: number, args: {{}}, timeout: number?)
+	SignalManager.WaitSignal(name, timeout)
+	SignalManager.FireRange(name, startIndex, endIndex, args)
 end
 
+function SignalManager.WaitSignalAndConnect(name: string, func: (...any) -> (), index: number?, timeout: number?)
+	SignalManager.WaitSignal(name, timeout)
+	SignalManager.Connect(name, func, index)
+end
 
-return table.freeze(Module)
+return table.freeze(SignalManager)
