@@ -17,18 +17,12 @@ return function()
 	end
 
 	tagsManager.Remove = function(tagName: string)
-		local callbacks = tags[tagName]
-		if not callbacks then error("No such tag was found.") end
-
-		local unregisterTagCallback = callbacks[2] :: () -> ()
-		unregisterTagCallback()
-
 		tags[tagName] = nil
 	end
 
 	tagsManager.Edit = function(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: (() -> ())?)
 		local callbacks = tags[tagName]
-		if not callbacks  then error("No such tag was found.") end
+		if not callbacks then error("No such tag was found.") end
 
 		if unregisterTagCallback then
 			callbacks[2] = unregisterTagCallback
@@ -39,9 +33,10 @@ return function()
 
 	tagsManager.Apply = function(tagName: string)
 		local callbacks = tags[tagName]
-		if not callbacks  then error("No such tag was found.") end
+		if not callbacks then error("No such tag was found.") end
 
 		local tagRegisteredCallback = callbacks[1]
+		local unregisterTagCallback = callbacks[2] :: () -> ()
 
 		for _, instance in pairs(CollectionService:GetTagged(tagName)) do
 			tagRegisteredCallback(instance)
@@ -52,7 +47,7 @@ return function()
 		end)
 
 		CollectionService:GetInstanceRemovedSignal(tagName):Connect(function(instance: Instance) 
-			tagsManager.Remove(tagName)
+			unregisterTagCallback()
 		end)
 	end
 	
