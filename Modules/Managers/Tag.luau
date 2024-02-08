@@ -9,7 +9,7 @@ return function()
 	local tagsManager = {}
 	local tags = {}
 
-	tagsManager.Add = function(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: (() -> ())?)
+	tagsManager.Add = function <a>(tagName: string, tagRegisteredCallback: (a) -> (), unregisterTagCallback: (() -> ())?)
 		if tags[tagName] then error(`There is already a tag named {tagName}.`) end
 		local unregisterTagCallback = unregisterTagCallback or function() end
 
@@ -20,7 +20,7 @@ return function()
 		tags[tagName] = nil
 	end
 
-	tagsManager.Edit = function(tagName: string, tagRegisteredCallback: (Instance) -> (), unregisterTagCallback: (() -> ())?)
+	tagsManager.Edit = function <a>(tagName: string, tagRegisteredCallback: (a) -> (), unregisterTagCallback: (() -> ())?)
 		local callbacks = tags[tagName]
 		if not callbacks then error("No such tag was found.") end
 
@@ -28,7 +28,7 @@ return function()
 			callbacks[2] = unregisterTagCallback
 		end
 
-		callbacks[1] = tagRegisteredCallback
+		callbacks[1] = tagRegisteredCallback :: (...any) -> ()
 	end
 
 	tagsManager.Apply = function(tagName: string)
@@ -42,11 +42,11 @@ return function()
 			tagRegisteredCallback(instance)
 		end
 
-		CollectionService:GetInstanceAddedSignal(tagName):Connect(function(instance: Instance) 
+		CollectionService:GetInstanceAddedSignal(tagName):Connect(function(instance: any) 
 			tagRegisteredCallback(instance)
 		end)
 
-		CollectionService:GetInstanceRemovedSignal(tagName):Connect(function(instance: Instance) 
+		CollectionService:GetInstanceRemovedSignal(tagName):Connect(function() 
 			unregisterTagCallback()
 		end)
 	end
