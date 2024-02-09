@@ -1,5 +1,5 @@
 --!strict
-
+--!native
 
 local SignalManager = {}
 
