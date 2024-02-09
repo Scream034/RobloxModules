@@ -11,8 +11,8 @@ local MAX_BATCH_SIZE = 500
 local MIN_BATCH_SIZE = 2
 
 function SignalManager.AddSignal(signalName: string): boolean
-	if not Signals[signalName] then 
-		warn(`[SignalManger.AddSignal]: Signal does not exist: {signalName}.`) 
+	if Signals[signalName] then 
+		warn(`[SignalManger.AddSignal]: Signal already exists: {signalName}.`) 
 		return false
 	end
 	
