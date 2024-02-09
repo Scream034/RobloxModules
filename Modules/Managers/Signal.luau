@@ -66,7 +66,7 @@ function SignalManager.FireRange(signalName: string, startIndex: number?, endInd
 	local startIndex = startIndex or 1
 	
 	if startIndex < 1 then
-		error("Invalid start index!")
+		error("[SignalManger.FireRange]: Invalid start index!")
 	end
 
 	local callbacks = Signals[signalName]
@@ -74,7 +74,7 @@ function SignalManager.FireRange(signalName: string, startIndex: number?, endInd
 
 	local length = #callbacks
 	if length == 0 then 
-		warn("Callback length cannot be 0.")
+		warn("[SignalManger.FireRange]: Callback length cannot be 0.")
 		return false
 	end
 	
@@ -102,7 +102,7 @@ function SignalManager.FireRange(signalName: string, startIndex: number?, endInd
 	end
 	
 	if args and endIndex < 1 or endIndex < startIndex then
-		error("Invalid end index or arguments!")
+		error("[SignalManger.FireRange]: Invalid end index or arguments!")
 	end
 	
 	processBatch(startIndex, endIndex)
@@ -118,7 +118,7 @@ function SignalManager.WaitSignal(signalName: string, timeout: number?): boolean
 		if Signals[signalName] then return true end
 		
 		if os.clock() - startTime > timeout then
-			warn(`Timeout exceeded while waiting for signal {signalName}.`)
+			warn(`[SignalManger.WaitSignal]: Timeout exceeded while waiting for signal {signalName}.`)
 			return false
 		end
 		
